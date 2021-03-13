@@ -1,35 +1,32 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppDispatch } from '../../app/store';
-import { fetchUsersRequested } from './usersLoadingStatusSlice';
-import { getUsers as getUsersApiCall } from './api';
-import { fetchUsersFailure, fetchUsersSuccess } from './commonActions';
-
-export type User = {
-  id: number,
-  name: string,
-  username: string
-}
+import { AppDispatch } from "../../app/store";
+import { fetchUsersRequested } from "./usersLoadingStatusSlice";
+import { getUsers as getUsersApiCall } from "./api";
+import { fetchUsersFailure, fetchUsersSuccess } from "./commonActions";
+import { User } from "./types";
 
 type UsersState = {
-  users: User[]
-}
+  users: User[];
+};
 
 const initialState: UsersState = {
   users: [],
 };
 
 const userDataSlice = createSlice({
-  name: 'users/data',
+  name: "users/data",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: {
-    [fetchUsersSuccess.toString()]: (state, { payload } : PayloadAction<Array<User>>) => {
+    [fetchUsersSuccess.toString()]: (
+      state,
+      { payload }: PayloadAction<Array<User>>
+    ) => {
       state.users = payload;
     },
-    [fetchUsersFailure.toString()]: state => (state = initialState)
-  }
+    [fetchUsersFailure.toString()]: (state) => (state = initialState),
+  },
 });
 
 export default userDataSlice.reducer;

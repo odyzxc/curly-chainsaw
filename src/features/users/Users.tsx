@@ -1,28 +1,42 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { debounce } from "lodash";
 
 import {
-  getUsersData,
   isUsersDataLoaded,
   isUsersDataLoading,
-} from './selectors';
-import LoadingContainer from '../../components/LoadingContainer/LoadingContainer';
+  getFilteredUsersData,
+} from "./selectors";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
-import { getUsers } from './usersDataSlice';
+import { getUsers } from "./usersDataSlice";
+import UsersList from "./UsersList";
+import { Title, UsersMain } from "./styled";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 export function Users() {
   const dispatch = useDispatch();
 
   const areUsersLoading = useSelector(isUsersDataLoading);
   const areUsersLoaded = useSelector(isUsersDataLoaded);
-  const users = useSelector(getUsersData); // TODO move
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const users = useSelector(getFilteredUsersData(searchTerm));
+
+  const onSearch = debounce((search) => setSearchTerm(search), 500);
+
   useEffect(() => {
-    dispatch(getUsers())
+    dispatch(getUsers());
   }, []);
 
   return (
-    <LoadingContainer isLoading={areUsersLoading && !areUsersLoaded}>
-        <div>USERS: {JSON.stringify(users)}</div>
-    </LoadingContainer>
+    <UsersMain.Container>
+      <Title>Users list</Title>
+      <SearchBar onChange={onSearch} disabled={areUsersLoading} />
+      <LoadingContainer isLoading={areUsersLoading && !areUsersLoaded}>
+        <UsersList users={users} />
+      </LoadingContainer>
+    </UsersMain.Container>
   );
 }

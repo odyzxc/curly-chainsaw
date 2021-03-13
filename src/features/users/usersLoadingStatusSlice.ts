@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { AsyncStates } from "../../constants/AsyncStates";
-import { fetchUsersSuccess, fetchUsersFailure } from './commonActions';
+import { fetchUsersSuccess, fetchUsersFailure } from "./commonActions";
 
 const initialState = {
   status: AsyncStates.Idle,
