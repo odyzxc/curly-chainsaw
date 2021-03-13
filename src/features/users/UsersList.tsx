@@ -8,7 +8,7 @@ type UserListProps = {
 };
 
 const UsersList: FunctionComponent<UserListProps> = ({ users }) => (
-  <UserList.Container>
+  <UserList.Container role="list">
     {users.map((user) => (
       <UserItem
         userId={user.id}

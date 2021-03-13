@@ -34,8 +34,8 @@ export default userDataSlice.reducer;
 export const getUsers = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(fetchUsersRequested());
-    const response = await getUsersApiCall();
-    dispatch(fetchUsersSuccess(response.data));
+    const users = await getUsersApiCall();
+    dispatch(fetchUsersSuccess(users));
   } catch (err) {
     console.error(err);
     dispatch(fetchUsersFailure());

@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import usersDataReducer from "../features/users/usersDataSlice";
 import usersLoadingStatusReducer from "../features/users/usersLoadingStatusSlice";
-import notificationsReducer from '../features/notifications/notificationsSlice';
+import notificationsReducer from "../features/notifications/notificationsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +14,7 @@ export const store = configureStore({
       data: usersDataReducer,
       loadingStatus: usersLoadingStatusReducer,
     }),
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
   },
 });
 
