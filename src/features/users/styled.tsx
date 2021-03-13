@@ -48,3 +48,7 @@ export const UsersMain = {
 export const Title = styled.h1`
   text-align: center;
 `;
+
+export const Error = styled.h3`
+  margin: auto;
+`;

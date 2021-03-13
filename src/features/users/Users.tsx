@@ -6,12 +6,13 @@ import {
   isUsersDataLoaded,
   isUsersDataLoading,
   getFilteredUsersData,
+  isUsersDataFailed,
 } from "./selectors";
 import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
 import { getUsers } from "./usersDataSlice";
 import UsersList from "./UsersList";
-import { Title, UsersMain } from "./styled";
+import { Title, UsersMain, Error } from "./styled";
 import SearchBar from "../../components/SearchBar/SearchBar";
 
 export function Users() {
@@ -19,6 +20,7 @@ export function Users() {
 
   const areUsersLoading = useSelector(isUsersDataLoading);
   const areUsersLoaded = useSelector(isUsersDataLoaded);
+  const areUsersFailed = useSelector(isUsersDataFailed);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -37,6 +39,9 @@ export function Users() {
       <LoadingContainer isLoading={areUsersLoading && !areUsersLoaded}>
         <UsersList users={users} />
       </LoadingContainer>
+      {areUsersFailed && (
+        <Error>"Sorry could not fetch users data. Please try again."</Error>
+      )}
     </UsersMain.Container>
   );
 }

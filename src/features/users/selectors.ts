@@ -2,7 +2,6 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { RootState } from "../../app/store";
 import { AsyncStates } from "../../constants/AsyncStates";
-import { User } from "./types";
 
 const getUsersState = (state: RootState) => state.users;
 
@@ -20,6 +19,11 @@ export const isUsersDataLoading = createSelector(
 export const isUsersDataLoaded = createSelector(
   getUsersLoadingStatusState,
   (state) => state.status === AsyncStates.Resolved
+);
+
+export const isUsersDataFailed = createSelector(
+  getUsersLoadingStatusState,
+  (state) => state.status === AsyncStates.Rejected
 );
 
 const getUsersData = createSelector(getUsersDataState, (state) => state.users);
